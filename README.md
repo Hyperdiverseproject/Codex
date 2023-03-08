@@ -1,4 +1,5 @@
-# Codexpipeline takes fastq files of paired-end reads and a tag file of tags of each fragments
+# Codexpipeline 
+bash script that takes fastq files of paired-end reads and a tag file of tags of each fragments
 Usage: $0 [-r|--R1 <R1 fastq file, required>] [-f|--R2 <R2 fastq file, required>] [-t|--tag <Barcode file, tabular, required>] 
 [-p|-prj <project name directory>]
 
