@@ -1,0 +1,22 @@
+#Directory where to find all the libraries:
+reads_directory: data_batch3
+#Project name where results will be found:
+output_directory: "BTC3"
+#Barcodes file:
+barcodes: amorces.txt 
+#Minimum reads to keep a fragment:
+min_reads: 10 
+#NCBI NT database directory:
+ncbidb: #/shared/bank/nt/current/blast/nt
+#Minimum fragment 1 size:
+minfr1: 331
+#Minimum fragment 2 size:
+minfr2: 313
+#Maximum fragment 1 size:
+maxfr1: 451
+#Maximum fragment 2 size:
+maxfr2: 434
+#Minimum reads mapping a contig:
+minreadsContig: 10
+#Minimum coverage:
+mincov: 5 
