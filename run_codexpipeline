@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH -p long
+#SBATCH -t 3-00:00:00
+#SBATCH -c 28
+
+#Packages needed to run codexpipeline
+module load snakemake/8.0.1
+module load fastp/0.23.1
+module load blast/2.14.0
+module load trinity/2.13.2
+module load minimap2/2.24
+#Run codexpipeline
+snakemake -c 28
