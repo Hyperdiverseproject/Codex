@@ -3,7 +3,7 @@ reads_directory: data_batch3
 #Project name where results will be found:
 output_directory: "BTC3"
 #Barcodes file:
-barcodes: amorces.txt 
+barcodes: barcodes.txt 
 #Minimum reads to keep a fragment:
 min_reads: 10 
 #NCBI NT database directory:
