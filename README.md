@@ -1,33 +1,44 @@
-# Codexpipeline 
-bash script that takes fastq files of paired-end reads and a tag file of tags of each fragments
-Usage: $0 [-r|--R1 <R1 fastq file, required>] [-f|--R2 <R2 fastq file, required>] [-t|--tag <Barcode file, tabular, required>] 
-[-p|-prj <project name directory>]
+Snakefile README
 
--h, --help              This help
--f, --R1 <file.fastq>   Fastq file unzipped with R1 reads; required
--r, --R2 <file.fastq>   Fastq file unzipped with R2 reads; required
--t, --tag <file.txt>    Barcode file; one line per well with the well name, the fragment 1 forward tag, then the fragment 1 reverse tag then the fragment 2 forward tag, then the fragm
-ent 2 reverse tag separated by a tabulation; required
--p, --prj <directory>   Project name; Creates a directory were computing will be done; default BTC1
--m, --min <number>      Minimum number of reads for a fragment; default 10
--a, --minfr1 <number>   Minimum length for fragment 1; default 331
--b, --maxfr1 <number>   Maximum length for fragment 1; default 451
--c, --minfr2 <number>   Minimum length for fragment 2; default 313
--d, --maxfr2 <number>   Maximum length for fragment 2; default 434
--n, --minreads <number> Minimum reads matching a contig fragment; default 10
--e, --mincov <number>   Minimum contig fragment converage; default 5
+Overview
+This Snakefile is designed for processing sequencing data and analyzing fragments. It performs the following steps:
+Trimming and merging reads using fastp.
+Demultiplexing reads based on barcodes file.
+Preparing a tag database using BLAST.
+Generating fasta files of the reads, running BLAST, and segregating fragments.
+Assembling fragments using Trinity.
+Calculating read depth using minimap.
+Performing BLAST on NT (nucleotide) database.
+Removing tags and filtering sequences.
+Merging fragments and generating the final output.
 
-First step - meerging R1 and R2 - need program PEAR under licence: https://www.h-its.org/downloads/pear-academic/
-        Install Pear locally:
-        Once downloaded, unzip the file pear-0.9.11-linux-x86_64.tar.gz by running:
-                tar xzf pear-0.9.11-linux-x86_64.tar.gz
-        then export it to your PATH:
-                export PATH=\$PATH:\$PWD/pear-0.9.11-linux-x86_64/bin/
+Configuration
+The configuration is stored in a YAML file named config.yaml.
+Input data includes read pairs file, barcodes file, and the NCBI NT database (optional).
+Usage
 
-Second step - demultiplexing per well - no external program
+To run the Snakefile, use the following command:
+snakemake -s Snakefile
+Ensure that Snakemake and the required tools (fastp, Trinity, BLAST, minimap2) are installed and accessible in your environment.
 
-Third step - demultiplexing per fragment type - need Blast - remove reads lower than 200 nucleotides
+Directory Structure
+The Snakefile assumes a specific directory structure:
 
-Four step - First step assembly per fragment - need trinity 
+Input reads are organized in the specified format (Library_*_R1.fastq.gz, Library_*_R2.fastq.gz); required
+Barcodes are provided in a text file (barcodes.txt), one line per well with the well name, the fragment 1 forward tag, then the fragment 1 reverse tag then the fragment 2 forward tag, then the fragment 2 reverse tag separated by a tabulation; required.
+Output is organized into different steps (First_step, Second_step, ..., Final) within specified output directories.
 
-Fifth step - Second step assembly (assembly of both fragments) - need Blast - Contig filtering (see options)
+Output
+The final sequences are generated in the Final directory as {sample}_final.sequences.fa.
+Various intermediate files are created in step-specific output directories.
+
+Dependencies
+fastp
+Trinity
+BLAST
+minimap2
+Ensure that these tools are installed and available in your PATH.
+
+Additional Notes
+Adjust the configuration parameters in config.yaml based on your dataset and analysis requirements.
+Review the Snakefile rules and shell commands for specific details on each step.
